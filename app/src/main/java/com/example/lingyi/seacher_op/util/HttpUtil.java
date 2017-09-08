@@ -27,7 +27,7 @@ public class HttpUtil {
         // add request header
         con.setRequestProperty("User-Agent",USER_AGENT);
         con.setConnectTimeout(3* 1000);//设置连接主机超时
-        con.setReadTimeout(30000);//设置连接主机读取数据超时
+        con.setReadTimeout(6000);//设置连接主机读取数据超时
 //        int responseCode = con.getResponseCode();
 //        Log.i("RESPONSECODE条码","Response Code : " + responseCode);
 

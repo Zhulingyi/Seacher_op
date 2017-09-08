@@ -1,5 +1,6 @@
 package com.example.lingyi.seacher_op;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lingyi.seacher_op.util.HttpUtil;
+import com.example.lingyi.seacher_op.zxing.utils.DialogUtils;
 
 import net.sf.json.JSONObject;
 
@@ -31,6 +33,7 @@ public class GoodsDetaileActivity extends AppCompatActivity {
   private static int GET_OK=1000;
   private static int GET_NO=1001;
   public String barcode;
+    private Dialog mWeiboDialog;
   @Bind(R.id.txt_goodsname)
   TextView txt_goodsname;
   @Bind(R.id.txt_barcode)
@@ -51,9 +54,8 @@ public class GoodsDetaileActivity extends AppCompatActivity {
         setContentView(R.layout.layout_goodsdetaile);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        if (intent.getFlags()!=111){
-            final Bundle bundle = intent.getExtras();
-            barcode=bundle.getString("result");
+        final Bundle bundle = intent.getExtras();
+        barcode=bundle.getString("result");
             Log.i("商品详情Activity",bundle.getString("result"));
             // new Thread(runnable).start();
 //            Handler handler = new Handler(Looper.getMainLooper());
@@ -64,7 +66,9 @@ public class GoodsDetaileActivity extends AppCompatActivity {
 //                    //txt_goodsDetaile.setText("123456789");
 //                }
 //            });
-        }
+
+        mWeiboDialog = DialogUtils.createLoadingDialog(GoodsDetaileActivity.this, "加载中...");
+
         Thread t =new Thread(runnable);
         Log.i("THREAD","线程开始");
         t.start();
@@ -77,10 +81,15 @@ public class GoodsDetaileActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                Goods goods = (Goods) msg.obj;
-                txt_goodsname.setText(goods.getName());
-               // txt_goodsdetail.setText(goods.getNetcontent());
-                txt_goodsbarcode.setText(goods.getBarcode());
+                Log.i("TTTT","加载完成");
+               DialogUtils.closeDialog(mWeiboDialog);
+                if (GETSTATUS==GET_OK){
+                    Goods goods = (Goods) msg.obj;
+                    txt_goodsname.setText(goods.getName());
+                    // txt_goodsdetail.setText(goods.getNetcontent());
+                    txt_goodsbarcode.setText(goods.getBarcode());
+                }
+
 
 
             }
@@ -106,9 +115,18 @@ public class GoodsDetaileActivity extends AppCompatActivity {
             Log.i("BEGIN","TRY2");
             JSONObject json = JSONObject.fromObject(result);
             if (json.getInt("status") != 0) {
+                GETSTATUS=GET_NO;
                 Log.i("TEST1",json.getString("msg"));
-                Toast toast= Toast.makeText(GoodsDetaileActivity.this, "简单的提示信息", Toast.LENGTH_SHORT);
+                if (json.getString("msg")=="条码为空"){
+                    Toast.makeText(this, "条码为空", Toast.LENGTH_SHORT).show();
+                }if(json.getString("msg")=="条码不正确"){
+                    Toast.makeText(this, "条码不正确", Toast.LENGTH_SHORT).show();
+                }else if (json.getString("msg")=="没有信息"){
+                    Toast.makeText(this, "没有信息", Toast.LENGTH_SHORT).show();
+                }
+
             } else {
+                GETSTATUS=GET_OK;
                 Log.i("BEGIN","TRY3");
                 JSONObject resultarr = json.optJSONObject("result");
                 String barCode = resultarr.getString("barcode");
@@ -122,7 +140,7 @@ public class GoodsDetaileActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = 1;
                 msg.obj=good;
-                Log.i("TEST2",barCode+"  "+name+"  "+origincountry+"   ");
+                Log.i("TEST2",barCode+"  "+good.getName()+"  "+origincountry+"   ");
                 mHandler.sendMessage(msg);
 
             }
