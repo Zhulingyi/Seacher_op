@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_scan_code"
+    android:fitsSystemWindows="true"
+    tools:context=".zxing.CaptureActivity"
+    android:background="@color/Appbackground">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_bar"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:background="@color/Apptheme"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        <ImageView
+            android:id="@+id/img_back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/back"
+         android:clickable="true"
+        android:layout_marginLeft="10dp"/>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/goods_detaile"
+             android:layout_gravity="center"
+             android:textSize="20sp"
+             android:textColor="@color/white"/>
+             />
+    </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:background="@color/barbackground">
+
+            <ImageView
+                android:id="@+id/img_goodsdetail"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/img_cantfind" />
+
+            <TextView
+                android:id="@+id/txt_goodsname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/img_goodsdetail"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+
+            <TextView
+                android:id="@+id/txt_barcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#606060"
+                android:textSize="13dp"
+                android:layout_alignLeft="@+id/txt_goodsname"
+                android:layout_alignStart="@+id/txt_goodsname"
+                android:layout_alignBottom="@+id/img_goodsdetail" />
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="47dp"
+                android:layout_marginLeft="230dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/txt_fuhao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="¥"
+                    android:textColor="#df0909"
+                    android:textSize="25dp" />
+                <TextView
+                    android:id="@+id/txe_goodsprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#df0909"
+                    android:textSize="25dp"
+                    android:text="10"
+                    android:layout_alignTop="@id/txt_fuhao"
+                    android:layout_toRightOf="@id/txt_fuhao"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/barbackground">
+
+            <LinearLayout
+                android:id="@+id/layout_select"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@drawable/dottedline">
+                <TextView
+                    android:id="@+id/txt_selectdistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="距离优先"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/txt_selectprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价格排序"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#b8b7b8"
+                android:layout_below="@id/layout_select"></View>
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

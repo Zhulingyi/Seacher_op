@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Seacher_op</string>
+    <string name="scan_code">Scan code</string>
+    <string name="goods_detaile">商品详情</string>
+    <string name="unable_to_open_camera">无法打开照相机</string>
+    <string name="error">error</string>
+</resources>
